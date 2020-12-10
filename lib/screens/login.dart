@@ -12,6 +12,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool load = false;
+
   Future<void> loginWithGoogle() async {
     try {
       setState(() {
@@ -50,14 +51,14 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfffc9b9a),
+      backgroundColor: Color(0xfff3bcb5),
       body: Container(
         height: double.infinity,
         width: double.infinity,
         child: Column(
           children: [
             Expanded(
-                flex: 22,
+                flex: 30,
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Container(
@@ -66,22 +67,11 @@ class _LoginState extends State<Login> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image(
-                            image: AssetImage("assets/images/welcomepage.jpg")),
+                        child:
+                            Image(image: AssetImage("assets/welcomepage.jpg")),
                       )),
                 )),
-            Expanded(
-                flex: 7,
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Text(
-                    "Test Your Skills With Quiz Questions.",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500),
-                  ),
-                )),
+
             Expanded(
               flex: 4,
               child: Padding(
