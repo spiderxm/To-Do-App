@@ -2,7 +2,5 @@
 class Todo{
   String title;
   String description;
-  DateTime startDate;
-  DateTime endDate;
-
+  String category;
 }

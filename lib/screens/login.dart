@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.white,
-          textColor: Colors.blue,
+          textColor: Colors.black,
           fontSize: 16.0);
     } catch (e) {
       print(e.message);
@@ -71,7 +71,6 @@ class _LoginState extends State<Login> {
                             Image(image: AssetImage("assets/welcomepage.jpg")),
                       )),
                 )),
-
             Expanded(
               flex: 4,
               child: Padding(
