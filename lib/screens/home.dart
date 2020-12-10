@@ -108,12 +108,18 @@ class _HomeState extends State<Home> {
               }
               return ListView.builder(
                   itemBuilder: (ctx, index) {
+                    print(snapshot.data.documents[index]["date"]);
+                    Timestamp timeStamp = snapshot.data.documents[index]["date"];
+                    print(timeStamp.microsecondsSinceEpoch);
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: TodoCard(
                           snapshot.data.documents[index]["title"],
                           snapshot.data.documents[index].id,
-                          snapshot.data.documents[index]["status"]),
+                          snapshot.data.documents[index]["status"],
+                          snapshot.data.documents[index]["description"],
+                          DateTime.fromMicrosecondsSinceEpoch(
+                              timeStamp.microsecondsSinceEpoch)),
                     );
                   },
                   itemCount: snapshot.data.documents.length);

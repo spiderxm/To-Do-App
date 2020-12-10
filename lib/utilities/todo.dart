@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:todo/screens/edit.dart';
 
 class TodoCard extends StatefulWidget {
   String title;
   String id;
   bool status = false;
+  String description;
+  DateTime dateTime;
 
-  TodoCard(this.title, this.id, this.status);
+  TodoCard(this.title, this.id, this.status, this.description, this.dateTime);
 
   @override
   _TodoCardState createState() => _TodoCardState();
@@ -20,9 +23,7 @@ class _TodoCardState extends State<TodoCard> {
     Firestore.instance.collection('todos').doc(widget.id).delete();
   }
 
-  void update() {
-
-  }
+  void update() {}
 
   void makeItDone() {
     try {
@@ -105,7 +106,16 @@ class _TodoCardState extends State<TodoCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  IconButton(icon: Icon(Icons.edit), onPressed: () {}),
+                  IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (ctx) => UpdateToDo(
+                                widget.id,
+                                widget.title,
+                                widget.description,
+                                widget.dateTime)));
+                      }),
                   widget.status
                       ? IconButton(
                           icon: Icon(Icons.undo_outlined),
