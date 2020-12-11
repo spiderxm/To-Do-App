@@ -91,6 +91,7 @@ class _CreateTodoState extends State<CreateTodo> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 10,),
                   Container(
                     padding: EdgeInsets.only(left: 20),
                     child: Text(

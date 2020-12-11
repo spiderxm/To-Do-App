@@ -61,7 +61,7 @@ class _UpdateToDoState extends State<UpdateToDo> {
         "time_of_completion": _timeOfDay.toString()
       });
       Fluttertoast.showToast(
-          msg: "To Do Added SuccessFully",
+          msg: "To Do Updated SuccessFully",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
@@ -103,6 +103,7 @@ class _UpdateToDoState extends State<UpdateToDo> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 10,),
                   Container(
                     padding: EdgeInsets.only(left: 20),
                     child: Text(
