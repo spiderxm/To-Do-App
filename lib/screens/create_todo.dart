@@ -314,7 +314,7 @@ class _CreateTodoState extends State<CreateTodo> {
                                 width: 2, color: Colors.grey[200]),
                           ),
                           prefixIcon: Icon(
-                            Icons.date_range,
+                            Icons.access_time,
                             color: Colors.grey.withOpacity(0.5),
                           ),
                           suffixIcon: IconButton(

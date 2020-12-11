@@ -92,50 +92,22 @@ class _TodoCardState extends State<TodoCard> {
             child: ListTile(
               tileColor: widget.status ? Color(0xffBCED91) : Color(0xfff3bcb5),
               title: Text(widget.title),
-              subtitle: Text(widget.dateTime.toString().substring(0, 10) +
-                  " " +
-                  widget.time.toString().substring(10, 15)),
+              subtitle: Text(widget.dateTime.toString().substring(0, 10), style: TextStyle(color: Colors.black54, fontSize: 14),),
               trailing: IconButton(
                 onPressed: () {
                   setState(() {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx) => ToDoDetail(widget.id, widget.title,
-                            widget.description, widget.dateTime, widget.time)));
+                        builder: (ctx) => ToDoDetail(
+                            widget.id,
+                            widget.title,
+                            widget.description,
+                            widget.dateTime,
+                            widget.time,
+                            widget.status)));
                   });
                 },
-                icon: Icon(Icons.info),
+                icon: Icon(Icons.info_outlined, size: 30,),
               ),
-            ),
-          ),
-          Container(
-            color: widget.status ? Color(0xffBCED91) : Color(0xfff3bcb5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) => UpdateToDo(widget.id, widget.title,
-                              widget.description, widget.dateTime)));
-                    }),
-                widget.status
-                    ? IconButton(
-                        icon: Icon(Icons.cancel_presentation),
-                        onPressed: () {
-                          makeItUnDone();
-                        })
-                    : IconButton(
-                        icon: Icon(Icons.done_outline),
-                        onPressed: () {
-                          makeItDone();
-                        }),
-                IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () async {
-                      delete();
-                    })
-              ],
             ),
           )
         ],
