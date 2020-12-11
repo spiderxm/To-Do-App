@@ -74,6 +74,7 @@ class _UpdateToDoState extends State<UpdateToDo> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Create To-Do"),
+        backgroundColor: Color(0xffec9489),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 8),
@@ -274,7 +275,7 @@ class _UpdateToDoState extends State<UpdateToDo> {
                   width: double.infinity,
                   height: 50,
                   child: MaterialButton(
-                    color: Colors.blue,
+                    color: Color(0xffec9489),
                     onPressed: () {
                       updateToDo();
                     },

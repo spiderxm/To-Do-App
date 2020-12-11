@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:todo/screens/Todo-detail.dart';
 import 'package:todo/screens/edit.dart';
 
 class TodoCard extends StatefulWidget {
@@ -87,57 +86,20 @@ class _TodoCardState extends State<TodoCard> {
       child: Column(
         children: [
           Container(
-            color: widget.status ? Color(0xffBCED91) : Color(0xfff3bcb5),
-            padding: EdgeInsets.all(10),
-            child: ListTile(
-              tileColor: widget.status ? Color(0xffBCED91) : Color(0xfff3bcb5),
-              title: Text(widget.title),
-              subtitle: Text(widget.dateTime.toString().substring(0, 10) +
-                  " " +
-                  widget.time.toString().substring(10, 15)),
-              trailing: IconButton(
-                onPressed: () {
-                  setState(() {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (ctx) => ToDoDetail(widget.id, widget.title,
-                            widget.description, widget.dateTime, widget.time)));
-                  });
-                },
-                icon: Icon(Icons.info),
-              ),
-            ),
-          ),
-          Container(
-            color: widget.status ? Color(0xffBCED91) : Color(0xfff3bcb5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) => UpdateToDo(widget.id, widget.title,
-                              widget.description, widget.dateTime)));
-                    }),
-                widget.status
-                    ? IconButton(
-                        icon: Icon(Icons.cancel_presentation),
-                        onPressed: () {
-                          makeItUnDone();
-                        })
-                    : IconButton(
-                        icon: Icon(Icons.done_outline),
-                        onPressed: () {
-                          makeItDone();
-                        }),
-                IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () async {
-                      delete();
-                    })
-              ],
-            ),
-          )
+              color: widget.status ? Color(0xffBCED91) : Color(0xfff3bcb5),
+              padding: EdgeInsets.all(10),
+              child: ListTile(
+                  tileColor:
+                      widget.status ? Color(0xffBCED91) : Color(0xfff3bcb5),
+                  title: Text(widget.title),
+                  subtitle: Text(widget.dateTime.toString().substring(0, 10) +
+                      " " +
+                      widget.time.toString().substring(10, 15)),
+                  trailing: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: widget.status
+                          ? Icon(Icons.done_outline)
+                          : Icon(Icons.clear))))
         ],
       ),
     );
