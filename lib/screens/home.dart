@@ -61,7 +61,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchTodo();
   }
@@ -223,21 +222,24 @@ class _HomeState extends State<Home> {
               if (snapshot.data.documents.length == 0) {
                 return Center(
                   child: Container(
-                    height: 200,
+                    height: 240,
                     decoration: BoxDecoration(
-                        color: Colors.grey,
+                        color: color,
                         borderRadius: BorderRadius.circular(20)),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "There are no tasks present.",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 20),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              "There are no Completed Todo's Present",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 25),
+                            ),
                           ),
                           SizedBox(
                             height: 20,
@@ -249,9 +251,10 @@ class _HomeState extends State<Home> {
                             height: 50,
                             child: MaterialButton(
                               color: Colors.blue,
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (ctx) => CreateTodo()));
+                              onPressed: () async {
+                                await Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (ctx) => CreateTodo()));
                               },
                               child: Row(
                                 children: [
@@ -264,7 +267,8 @@ class _HomeState extends State<Home> {
                                   ),
                                   Text('Create To-Do\'s',
                                       style: TextStyle(
-                                          color: Colors.white.withOpacity(0.9),
+                                          color:
+                                          Colors.white.withOpacity(0.9),
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold)),
                                 ],

@@ -72,9 +72,11 @@ class DoneToDos extends StatelessWidget {
                               height: 50,
                               child: MaterialButton(
                                 color: Colors.blue,
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (ctx) => CreateTodo()));
+                                onPressed: () async {
+                                  await Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (ctx) => CreateTodo()));
+                                  Navigator.of(context).pop();
                                 },
                                 child: Row(
                                   children: [
@@ -87,7 +89,8 @@ class DoneToDos extends StatelessWidget {
                                     ),
                                     Text('Create To-Do\'s',
                                         style: TextStyle(
-                                            color: Colors.white.withOpacity(0.9),
+                                            color:
+                                                Colors.white.withOpacity(0.9),
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold)),
                                   ],
