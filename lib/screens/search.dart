@@ -43,7 +43,8 @@ class _SearchState extends State<Search> {
               DateTime.fromMicrosecondsSinceEpoch(
                   timeStamp.microsecondsSinceEpoch),
               list[index]["time_of_completion"],
-              fetchAndSetUI),
+              fetchAndSetUI,
+              list[index]["priority"]),
         ));
       }
       if (todolist.length == 0) {

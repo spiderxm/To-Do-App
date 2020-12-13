@@ -11,9 +11,9 @@ class TodoCard extends StatefulWidget {
   String description;
   DateTime dateTime;
   String time;
-
+  String priority;
   TodoCard(this.title, this.id, this.status, this.description, this.dateTime,
-      this.time);
+      this.time, this.priority);
 
   @override
   _TodoCardState createState() => _TodoCardState();
@@ -103,7 +103,8 @@ class _TodoCardState extends State<TodoCard> {
                             widget.description,
                             widget.dateTime,
                             widget.time,
-                            widget.status)));
+                            widget.status,
+                        widget.priority)));
                   });
                 },
                 icon: Icon(Icons.info_outlined, size: 30,),

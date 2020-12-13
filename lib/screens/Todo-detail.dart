@@ -11,9 +11,10 @@ class ToDoDetail extends StatefulWidget {
   DateTime dateTime;
   String time;
   bool status;
+  String priority;
 
   ToDoDetail(this.id, this.title, this.description, this.dateTime, this.time,
-      this.status);
+      this.status, this.priority);
 
   @override
   _ToDoDetailState createState() => _ToDoDetailState();
@@ -25,6 +26,7 @@ class _ToDoDetailState extends State<ToDoDetail> {
   final dateTimeController = TextEditingController();
   final titleController = TextEditingController();
   final statusController = TextEditingController();
+  final priorityController = TextEditingController();
   bool s;
 
   @override
@@ -34,6 +36,7 @@ class _ToDoDetailState extends State<ToDoDetail> {
     descriptionController.text = widget.description;
     dateTimeController.text = widget.dateTime.toString().substring(0, 10);
     statusController.text = widget.status ? "Complete" : "Incomplete";
+    priorityController.text = widget.priority;
     s = widget.status;
   }
 
@@ -178,8 +181,50 @@ class _ToDoDetailState extends State<ToDoDetail> {
                     )),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CircleAvatar(
+                          child: IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () async {
+                                await Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (ctx) => UpdateToDo(
+                                            widget.id,
+                                            widget.title,
+                                            widget.description,
+                                            widget.dateTime,
+                                            widget.time)));
+                                Navigator.of(context).pop();
+                              }),
+                        ),
+                        CircleAvatar(
+                          child: IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () async {
+                                showAlertDialogForDeletion(context);
+                              }),
+                        ),
+                        CircleAvatar(
+                          child: IconButton(
+                            onPressed: () async {
+                              showAlertDialog(context);
+                            },
+                            icon: !widget.status
+                                ? Icon(Icons.done)
+                                : Icon(Icons.cancel),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 20),
@@ -423,48 +468,52 @@ class _ToDoDetailState extends State<ToDoDetail> {
                 SizedBox(
                   height: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        CircleAvatar(
-                          child: IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () async {
-                                await Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (ctx) => UpdateToDo(
-                                            widget.id,
-                                            widget.title,
-                                            widget.description,
-                                            widget.dateTime,
-                                            widget.time)));
-                                Navigator.of(context).pop();
-                              }),
-                        ),
-                        CircleAvatar(
-                          child: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () async {
-                                showAlertDialogForDeletion(context);
-                              }),
-                        ),
-                        CircleAvatar(
-                          child: IconButton(
-                            onPressed: () async {
-                              showAlertDialog(context);
-                            },
-                            icon: !widget.status
-                                ? Icon(Icons.done)
-                                : Icon(Icons.cancel),
-                          ),
-                        )
-                      ],
-                    ),
+                Container(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    'Priority',
+                    style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                    child: TextFormField(
+                      readOnly: true,
+                      enableSuggestions: true,
+                      controller: priorityController,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey[200],
+                        filled: true,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide:
+                          new BorderSide(width: 2, color: Colors.grey[200]),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide:
+                          new BorderSide(width: 2, color: Colors.grey[200]),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.date_range,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
+                        hintText: "Priority",
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                      style: TextStyle(
+                          color: Colors.black.withOpacity(0.7),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15),
+                    )),
+
               ],
             ),
           ),

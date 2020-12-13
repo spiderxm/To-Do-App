@@ -12,9 +12,11 @@ class TodoCard extends StatefulWidget {
   DateTime dateTime;
   String time;
   Function fetchandsetUI;
+  String priority;
+
 
   TodoCard(this.title, this.id, this.status, this.description, this.dateTime,
-      this.time, this.fetchandsetUI);
+      this.time, this.fetchandsetUI, this.priority);
 
   @override
   _TodoCardState createState() => _TodoCardState();
@@ -109,7 +111,8 @@ class _TodoCardState extends State<TodoCard> {
                           widget.description,
                           widget.dateTime,
                           widget.time,
-                          widget.status)));
+                          widget.status,
+                      widget.priority)));
                   widget.fetchandsetUI();
                 },
                 icon: Icon(

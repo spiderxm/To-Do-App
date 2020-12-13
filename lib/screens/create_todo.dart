@@ -11,8 +11,8 @@ class CreateTodo extends StatefulWidget {
 }
 
 class _CreateTodoState extends State<CreateTodo> {
-  void createTodo() async {}
-  String _title, _description;
+  bool load = false;
+  String _title, _description, _priority;
   DateTime _dateTime;
   TimeOfDay _time;
   final _formKey = GlobalKey<FormState>();
@@ -20,6 +20,7 @@ class _CreateTodoState extends State<CreateTodo> {
   final titleController = TextEditingController();
   final dateTimeController = TextEditingController();
   final timeController = TextEditingController();
+  final priorityController = TextEditingController();
 
   @override
   void dispose() {
@@ -31,6 +32,9 @@ class _CreateTodoState extends State<CreateTodo> {
   }
 
   void createToDo() async {
+    setState(() {
+      load = true;
+    });
     bool valid = _formKey.currentState.validate();
     if (valid) {
       try {
@@ -38,6 +42,7 @@ class _CreateTodoState extends State<CreateTodo> {
         var data = {
           "email": FirebaseAuth.instance.currentUser.email,
           "title": _title,
+          "priority": _priority,
           "date": _dateTime,
           "description": _description,
           "status": false,
@@ -66,6 +71,9 @@ class _CreateTodoState extends State<CreateTodo> {
             fontSize: 16.0);
       }
     }
+    setState(() {
+      load = false;
+    });
     return;
   }
 
@@ -91,7 +99,9 @@ class _CreateTodoState extends State<CreateTodo> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     padding: EdgeInsets.only(left: 20),
                     child: Text(
@@ -358,6 +368,93 @@ class _CreateTodoState extends State<CreateTodo> {
                             fontWeight: FontWeight.w500,
                             fontSize: 15),
                       )),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text(
+                      'Priority',
+                      style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    child: DropdownButtonFormField(
+                      onChanged: (value) {
+                        _priority = value;
+                        priorityController.text = _priority;
+                      },
+                      items: [
+                        DropdownMenuItem(
+                            value: "Urgent",
+                            child: Row(
+                              children: [
+                                Icon(Icons.pending_actions),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text("Urgent")
+                              ],
+                            )),
+                        DropdownMenuItem(
+                            value: "Later",
+                            child: Row(
+                              children: [
+                                Icon(Icons.timeline),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text("Later")
+                              ],
+                            )),
+                        DropdownMenuItem(
+                            value: "Future",
+                            child: Row(
+                              children: [
+                                Icon(Icons.hourglass_empty_outlined),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text("Future")
+                              ],
+                            )),
+                      ],
+                      validator: (input) {
+                        if (_priority == null) {
+                          return "Please select priority";
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                          color: Colors.black.withOpacity(0.7),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15),
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey[200],
+                        filled: true,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide:
+                              new BorderSide(width: 2, color: Colors.grey[200]),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide:
+                              new BorderSide(width: 2, color: Colors.grey[200]),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.date_range,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
+                        hintText: "Priority",
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 20),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
@@ -368,7 +465,7 @@ class _CreateTodoState extends State<CreateTodo> {
                       onPressed: () {
                         createToDo();
                       },
-                      child: Text('Create To Do',
+                      child: load ? SpinKitCircle(color: Colors.white): Text('Create To Do',
                           style: TextStyle(
                               color: Colors.white.withOpacity(0.9),
                               fontSize: 20,

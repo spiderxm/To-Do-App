@@ -296,6 +296,7 @@ class _HomeState extends State<Home> {
                         DateTime.fromMicrosecondsSinceEpoch(
                             timeStamp.microsecondsSinceEpoch),
                         snapshot.data.documents[index]["time_of_completion"],
+                        snapshot.data.documents[index]["priority"]
                       ),
                     );
                   },
