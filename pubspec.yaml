@@ -32,6 +32,8 @@ dependencies:
   http: ^0.12.2
   flutter_spinkit: ^4.1.2
   cloud_firestore: ^0.14.4
+  curved_navigation_bar: ^0.3.4
+
 
 
 

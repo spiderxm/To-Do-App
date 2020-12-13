@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:todo/screens/create_todo.dart';
@@ -9,7 +9,7 @@ import 'package:todo/screens/done-todo\'s.dart';
 import 'package:todo/screens/search.dart';
 import 'package:todo/screens/todo\'s.dart';
 import 'package:todo/screens/undone-todo\'s.dart';
-import 'package:todo/utilities/todo.dart';
+import 'home_page_widget_list.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,14 +17,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int index = 0;
+  Color color = Color(0xffec9489);
   var userImageUrl = FirebaseAuth.instance.currentUser.photoURL;
 
   void fetchTodo() async {
-    // ignore: deprecated_member_use
     try {
       QuerySnapshot querySnapshot =
           await Firestore.instance.collection("todos").getDocuments();
-      // ignore: deprecated_member_use
       var list = querySnapshot.documents;
       print(list);
     } catch (e) {
@@ -58,7 +58,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  Color color = Color(0xffec9489);
 
   @override
   void initState() {
@@ -192,120 +191,32 @@ class _HomeState extends State<Home> {
               })
         ],
       ),
+      body: home[index],
+      bottomNavigationBar: CurvedNavigationBar(
+        onTap: (i) {
+          setState(() {
+            index = i;
+          });
+        },
+        color: color,
+        animationDuration: Duration(
+          milliseconds: 500,
+        ),
+        backgroundColor: Colors.transparent,
+        buttonBackgroundColor: color,
+        items: [Icon(Icons.list), Icon(Icons.done), Icon(Icons.clear)],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (ctx) => CreateTodo()));
         },
-        backgroundColor: Colors.white70,
+        backgroundColor: color,
         child: IconButton(
           icon: Icon(Icons.add, color: Colors.black),
         ),
       ),
-      body: Container(
-          padding: EdgeInsets.all(18),
-          height: double.infinity,
-          child: StreamBuilder(
-            stream: Firestore.instance
-                .collection('todos')
-                .where("email",
-                    isEqualTo: FirebaseAuth.instance.currentUser.email)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: SpinKitFoldingCube(
-                    color: Color(0xfff3bcb5),
-                  ),
-                );
-              }
-              if (snapshot.data.documents.length == 0) {
-                return Center(
-                  child: Container(
-                    height: 240,
-                    decoration: BoxDecoration(
-                        color: color, borderRadius: BorderRadius.circular(20)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text(
-                              "There are no Completed Todo's Present",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 25),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 15),
-                            width: double.infinity,
-                            height: 50,
-                            child: MaterialButton(
-                              color: Colors.blue,
-                              onPressed: () async {
-                                await Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (ctx) => CreateTodo()));
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(
-                                    width: 40,
-                                  ),
-                                  Text('Create To-Do\'s',
-                                      style: TextStyle(
-                                          color: Colors.white.withOpacity(0.9),
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold)),
-                                ],
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }
-              return ListView.builder(
-                  itemBuilder: (ctx, index) {
-                    Timestamp timeStamp =
-                        snapshot.data.documents[index]["date"];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: TodoCard(
-                        snapshot.data.documents[index]["title"],
-                        snapshot.data.documents[index].id,
-                        snapshot.data.documents[index]["status"],
-                        snapshot.data.documents[index]["description"],
-                        DateTime.fromMicrosecondsSinceEpoch(
-                            timeStamp.microsecondsSinceEpoch),
-                        snapshot.data.documents[index]["time_of_completion"],
-                        snapshot.data.documents[index]["priority"]
-                      ),
-                    );
-                  },
-                  itemCount: snapshot.data.documents.length);
-            },
-          )),
-      bottomNavigationBar: BottomAppBar(
-
-      ),
     );
   }
 }
+
