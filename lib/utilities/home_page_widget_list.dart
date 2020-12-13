@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:todo/utilities/todo.dart';
-import 'create_todo.dart';
+import '../screens/create_todo.dart';
 
 Color color = Color(0xffec9489);
 
@@ -38,7 +38,7 @@ List<Widget> home = [
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
-                          "There are no Completed Todo's Present",
+                          "There are no To-Do\'s Present",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
@@ -208,7 +208,7 @@ List<Widget> home = [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Chip(
-                    label: Text("Complete To-Do's", style: TextStyle(
+                    label: Text("Completed To-Do's", style: TextStyle(
                         color: Colors.white,
                         fontSize: 24
                     ),),

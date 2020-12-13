@@ -9,7 +9,7 @@ import 'package:todo/screens/done-todo\'s.dart';
 import 'package:todo/screens/search.dart';
 import 'package:todo/screens/todo\'s.dart';
 import 'package:todo/screens/undone-todo\'s.dart';
-import 'home_page_widget_list.dart';
+import '../utilities/home_page_widget_list.dart';
 
 class Home extends StatefulWidget {
   @override
