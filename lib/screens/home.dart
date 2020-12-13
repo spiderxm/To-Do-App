@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:todo/screens/create_todo.dart';
 import 'package:todo/screens/done-todo\'s.dart';
+import 'package:todo/screens/search.dart';
 import 'package:todo/screens/todo\'s.dart';
 import 'package:todo/screens/undone-todo\'s.dart';
 import 'package:todo/utilities/todo.dart';
@@ -74,9 +75,7 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
           child: ListView(children: [
         UserAccountsDrawerHeader(
-          decoration: BoxDecoration(
-            color: Color(0xff1cb177)
-          ),
+            decoration: BoxDecoration(color: Color(0xff1cb177)),
             accountName: Text(FirebaseAuth.instance.currentUser.displayName),
             accountEmail: Text(FirebaseAuth.instance.currentUser.email),
             currentAccountPicture: CircleAvatar(
@@ -184,11 +183,12 @@ class _HomeState extends State<Home> {
         actions: [
           IconButton(
               icon: const Icon(
-                Icons.logout,
+                Icons.search,
                 color: Colors.white,
               ),
               onPressed: () {
-                tryLogout();
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (ctx) => Search()));
               })
         ],
       ),
@@ -224,8 +224,7 @@ class _HomeState extends State<Home> {
                   child: Container(
                     height: 240,
                     decoration: BoxDecoration(
-                        color: color,
-                        borderRadius: BorderRadius.circular(20)),
+                        color: color, borderRadius: BorderRadius.circular(20)),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -267,8 +266,7 @@ class _HomeState extends State<Home> {
                                   ),
                                   Text('Create To-Do\'s',
                                       style: TextStyle(
-                                          color:
-                                          Colors.white.withOpacity(0.9),
+                                          color: Colors.white.withOpacity(0.9),
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold)),
                                 ],
@@ -286,10 +284,8 @@ class _HomeState extends State<Home> {
               }
               return ListView.builder(
                   itemBuilder: (ctx, index) {
-                    print(snapshot.data.documents[index]["date"]);
                     Timestamp timeStamp =
                         snapshot.data.documents[index]["date"];
-                    print(timeStamp.microsecondsSinceEpoch);
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 20),
                       child: TodoCard(
