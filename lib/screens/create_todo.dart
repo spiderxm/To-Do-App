@@ -465,11 +465,13 @@ class _CreateTodoState extends State<CreateTodo> {
                       onPressed: () {
                         createToDo();
                       },
-                      child: load ? SpinKitCircle(color: Colors.white): Text('Create To Do',
-                          style: TextStyle(
-                              color: Colors.white.withOpacity(0.9),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold)),
+                      child: load
+                          ? SpinKitCircle(color: Colors.white)
+                          : Text('Create To Do',
+                              style: TextStyle(
+                                  color: Colors.white.withOpacity(0.9),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),

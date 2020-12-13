@@ -198,7 +198,8 @@ class _ToDoDetailState extends State<ToDoDetail> {
                                             widget.title,
                                             widget.description,
                                             widget.dateTime,
-                                            widget.time)));
+                                            widget.time,
+                                            widget.priority)));
                                 Navigator.of(context).pop();
                               }),
                         ),
@@ -494,12 +495,12 @@ class _ToDoDetailState extends State<ToDoDetail> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           borderSide:
-                          new BorderSide(width: 2, color: Colors.grey[200]),
+                              new BorderSide(width: 2, color: Colors.grey[200]),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           borderSide:
-                          new BorderSide(width: 2, color: Colors.grey[200]),
+                              new BorderSide(width: 2, color: Colors.grey[200]),
                         ),
                         prefixIcon: Icon(
                           Icons.date_range,
@@ -513,7 +514,6 @@ class _ToDoDetailState extends State<ToDoDetail> {
                           fontWeight: FontWeight.w500,
                           fontSize: 15),
                     )),
-
               ],
             ),
           ),

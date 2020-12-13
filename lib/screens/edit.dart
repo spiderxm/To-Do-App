@@ -8,15 +8,17 @@ class UpdateToDo extends StatefulWidget {
   String description;
   DateTime endDate;
   String time;
+  String priority;
 
-  UpdateToDo(this.id, this.title, this.description, this.endDate, this.time);
+  UpdateToDo(this.id, this.title, this.description, this.endDate, this.time,
+      this.priority);
 
   @override
   _UpdateToDoState createState() => _UpdateToDoState();
 }
 
 class _UpdateToDoState extends State<UpdateToDo> {
-  String _title, _description;
+  String _title, _description, _priority;
   DateTime _dateTime;
   TimeOfDay _timeOfDay;
 
@@ -25,11 +27,14 @@ class _UpdateToDoState extends State<UpdateToDo> {
   final titleController = TextEditingController();
   final dateTimeController = TextEditingController();
   final timeController = TextEditingController();
+  final priorityController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _title = widget.title;
+    _priority = widget.priority;
+    priorityController.text = _priority;
     _description = widget.description;
     descriptionController.text = widget.description;
     titleController.text = widget.title;
@@ -46,6 +51,8 @@ class _UpdateToDoState extends State<UpdateToDo> {
     descriptionController.dispose();
     titleController.dispose();
     dateTimeController.dispose();
+    timeController.dispose();
+    priorityController.dispose();
     super.dispose();
   }
 
@@ -57,6 +64,7 @@ class _UpdateToDoState extends State<UpdateToDo> {
       await Firestore.instance.collection('todos').doc(widget.id).update({
         "title": _title,
         "description": _description,
+        "priority": _priority,
         "date": _dateTime,
         "time_of_completion": _timeOfDay.toString()
       });
@@ -103,7 +111,9 @@ class _UpdateToDoState extends State<UpdateToDo> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     padding: EdgeInsets.only(left: 20),
                     child: Text(
@@ -116,7 +126,8 @@ class _UpdateToDoState extends State<UpdateToDo> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                       child: TextFormField(
                         enableSuggestions: true,
                         keyboardType: TextInputType.text,
@@ -136,13 +147,13 @@ class _UpdateToDoState extends State<UpdateToDo> {
                           filled: true,
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide:
-                                new BorderSide(width: 2, color: Colors.grey[200]),
+                            borderSide: new BorderSide(
+                                width: 2, color: Colors.grey[200]),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide:
-                                new BorderSide(width: 2, color: Colors.grey[200]),
+                            borderSide: new BorderSide(
+                                width: 2, color: Colors.grey[200]),
                           ),
                           prefixIcon: Icon(
                             Icons.topic,
@@ -171,7 +182,8 @@ class _UpdateToDoState extends State<UpdateToDo> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                       child: TextFormField(
                         minLines: 1,
                         //Normal textInputField will be displayed
@@ -194,13 +206,13 @@ class _UpdateToDoState extends State<UpdateToDo> {
                           filled: true,
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide:
-                                new BorderSide(width: 2, color: Colors.grey[200]),
+                            borderSide: new BorderSide(
+                                width: 2, color: Colors.grey[200]),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide:
-                                new BorderSide(width: 2, color: Colors.grey[200]),
+                            borderSide: new BorderSide(
+                                width: 2, color: Colors.grey[200]),
                           ),
                           prefixIcon: Icon(
                             Icons.description,
@@ -229,7 +241,8 @@ class _UpdateToDoState extends State<UpdateToDo> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                       child: TextFormField(
                         readOnly: true,
                         //Normal textInputField will be displayed
@@ -247,13 +260,13 @@ class _UpdateToDoState extends State<UpdateToDo> {
                           filled: true,
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide:
-                                new BorderSide(width: 2, color: Colors.grey[200]),
+                            borderSide: new BorderSide(
+                                width: 2, color: Colors.grey[200]),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide:
-                                new BorderSide(width: 2, color: Colors.grey[200]),
+                            borderSide: new BorderSide(
+                                width: 2, color: Colors.grey[200]),
                           ),
                           prefixIcon: Icon(
                             Icons.date_range,
@@ -296,7 +309,8 @@ class _UpdateToDoState extends State<UpdateToDo> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                       child: TextFormField(
                         readOnly: true,
                         //Normal textInputField will be displayed
@@ -314,13 +328,13 @@ class _UpdateToDoState extends State<UpdateToDo> {
                           filled: true,
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide:
-                                new BorderSide(width: 2, color: Colors.grey[200]),
+                            borderSide: new BorderSide(
+                                width: 2, color: Colors.grey[200]),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide:
-                                new BorderSide(width: 2, color: Colors.grey[200]),
+                            borderSide: new BorderSide(
+                                width: 2, color: Colors.grey[200]),
                           ),
                           prefixIcon: Icon(
                             Icons.access_time,
@@ -344,13 +358,15 @@ class _UpdateToDoState extends State<UpdateToDo> {
                               _timeOfDay = time;
                               int l = _timeOfDay.minute.toString().length;
                               if (l == 1) {
-                                timeController.text = _timeOfDay.hour.toString() +
-                                    ":0" +
-                                    _timeOfDay.minute.toString();
+                                timeController.text =
+                                    _timeOfDay.hour.toString() +
+                                        ":0" +
+                                        _timeOfDay.minute.toString();
                               } else {
-                                timeController.text = _timeOfDay.hour.toString() +
-                                    ":" +
-                                    _timeOfDay.minute.toString();
+                                timeController.text =
+                                    _timeOfDay.hour.toString() +
+                                        ":" +
+                                        _timeOfDay.minute.toString();
                               }
                             },
                             icon: Icon(
@@ -366,6 +382,94 @@ class _UpdateToDoState extends State<UpdateToDo> {
                             fontWeight: FontWeight.w500,
                             fontSize: 15),
                       )),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text(
+                      'Priority',
+                      style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    child: DropdownButtonFormField(
+                      onChanged: (value) {
+                        _priority = value;
+                        priorityController.text = _priority;
+                      },
+                      value: _priority,
+                      items: [
+                        DropdownMenuItem(
+                            value: "Urgent",
+                            child: Row(
+                              children: [
+                                Icon(Icons.pending_actions),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text("Urgent")
+                              ],
+                            )),
+                        DropdownMenuItem(
+                            value: "Later",
+                            child: Row(
+                              children: [
+                                Icon(Icons.timeline),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text("Later")
+                              ],
+                            )),
+                        DropdownMenuItem(
+                            value: "Future",
+                            child: Row(
+                              children: [
+                                Icon(Icons.hourglass_empty_outlined),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text("Future")
+                              ],
+                            )),
+                      ],
+                      validator: (input) {
+                        if (_priority == null) {
+                          return "Please select priority";
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                          color: Colors.black.withOpacity(0.7),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15),
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey[200],
+                        filled: true,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide:
+                              new BorderSide(width: 2, color: Colors.grey[200]),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderSide:
+                              new BorderSide(width: 2, color: Colors.grey[200]),
+                        ),
+                        prefixIcon: Icon(
+                          Icons.date_range,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
+                        hintText: "Priority",
+                        hintStyle: TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 20),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
