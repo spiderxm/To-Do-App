@@ -302,6 +302,9 @@ class _HomeState extends State<Home> {
                   itemCount: snapshot.data.documents.length);
             },
           )),
+      bottomNavigationBar: BottomAppBar(
+
+      ),
     );
   }
 }
